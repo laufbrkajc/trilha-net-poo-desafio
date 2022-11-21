@@ -5,9 +5,8 @@ namespace DesafioPOO.Models
     {
         private string[] AplicativosInstalados = { "bloatware" };
 
-        public Iphone(string num) : base(num)
+        public Iphone(string num, string imei, string modl, int mem) : base(num, modl, imei, mem)
         {
-            Numero = num;
         }
 
         public override void InstalarAplicativo(string nomeApp)

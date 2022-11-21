@@ -1,13 +1,11 @@
 namespace DesafioPOO.Models
 {
-    // TODO: Herdar da classe "Smartphone"
     public class Nokia : Smartphone
     {
         private string[] AplicativosInstalados = { "bloatware" };
 
-        public Nokia(string num) : base(num)
+        public Nokia(string num, string imei, string modl, int mem) : base(num, modl, imei, mem)
         {
-            Numero = num;
         }
 
         public override void InstalarAplicativo(string nomeApp)
