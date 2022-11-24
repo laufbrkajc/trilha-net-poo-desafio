@@ -7,7 +7,7 @@ char opcaoMenu = ' ';
 while (opcaoMenu != 's' && opcaoMenu != 'S')
 {
     Console.WriteLine("O que deseja fazer?");
-    Console.WriteLine("Adicionar um novo telefone, Ligar para um número, Remover um telefone, Instalar um aplicativo ou Sair?(A/L/I/S)");
+    Console.WriteLine("Adicionar um novo telefone, Fazer uma ligação, Ligar para um número, Remover um telefone, Instalar um aplicativo, Excluir um telefone ou Sair?(A/C/L/I/E/S)");
     opcaoMenu = (char)Console.Read();
     Console.Read();
 
@@ -17,6 +17,7 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
             AdicionarTelefone();
             break;
         case 'c' or 'C': // Chamar um número
+            Chamar();
             break;
         case 'l' or 'L': // Listar os telefones
             ListarSmartphones();
@@ -32,32 +33,59 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
     }
 }
 
+bool SelecionarSmartphone(string num, out Smartphone smartphoneEncontrado)
+{
+    foreach (var telefone in smartphones)
+    {
+        if (telefone.Numero == num) {
+            smartphoneEncontrado = telefone;
+            return true;
+        }
+    }
+
+    smartphoneEncontrado = new Nokia("0", "0", "0", 0);
+    return false;
+}
+
 void ListarSmartphones()
 {
     foreach (var telefone in smartphones)
     {
-        Console.WriteLine("teste");
-
-        // Começamos imprimindo um rótulo indicando se o telefone é iPhone ou Nokia.
-        Console.WriteLine($"  {0}", (telefone is Iphone) ? "iPhone" : "Nokia");
-        Console.WriteLine($"    {telefone.Numero}");
-        Console.WriteLine($"    {telefone.Modelo}");
-        Console.WriteLine($"    {telefone.IMEI}");
-        Console.WriteLine($"    {telefone.Memoria}");
+        // Começamos com um rótulo indicando se o telefone é iPhone ou Nokia.
+        string nokiaOuIphone = (telefone is Nokia) ? "iPhone" : "Nokia";
+        Console.WriteLine($"  {nokiaOuIphone}");
+        Console.WriteLine($"    Numero: {telefone.Numero}");
+        Console.WriteLine($"    Modelo: {telefone.Modelo}");
+        Console.WriteLine($"    IMEI: {telefone.IMEI}");
+        Console.WriteLine($"    Memoria: {telefone.Memoria}");
     }
 }
 
-void Chamar(string meuNum, string contato)
+void Chamar()
 {
-    foreach (var telefone in smartphones)
+    string meuNumero = String.Empty;
+    string contato = String.Empty;
+    Smartphone meuTelefone;
+    Smartphone telefoneDestino;
+
+    Console.WriteLine("De qual número quer ligar?");
+    meuNumero = Console.ReadLine();
+    Console.WriteLine("Para qual número quer ligar?");
+    contato = Console.ReadLine();
+
+    if(!SelecionarSmartphone(meuNumero, out meuTelefone))
     {
-        if (telefone.Numero == contato)
-        {
-            telefone.ReceberLigacao(meuNum);
-            return;
-        }
+        Console.WriteLine("Telefone origem não encontrado.");
+        return;
+    }
+    else if(!SelecionarSmartphone(contato, out telefoneDestino))
+    {
+        Console.WriteLine("Telefone destino não encontrado.");
+        return;
     }
 
+    meuTelefone.Ligar(telefoneDestino.Numero);
+    telefoneDestino.Ligar(meuTelefone.Numero);
 }
 
 void AdicionarTelefone()
