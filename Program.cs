@@ -33,7 +33,7 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
     }
 }
 
-bool SelecionarSmartphone(string num, out Smartphone smartphoneEncontrado)
+bool SelecionarSmartphone(string? num, out Smartphone smartphoneEncontrado)
 {
     foreach (var telefone in smartphones)
     {
@@ -63,8 +63,8 @@ void ListarSmartphones()
 
 void Chamar()
 {
-    string meuNumero = String.Empty;
-    string contato = String.Empty;
+    string? meuNumero = String.Empty;
+    string? contato = String.Empty;
     Smartphone meuTelefone;
     Smartphone telefoneDestino;
 
@@ -85,7 +85,7 @@ void Chamar()
     }
 
     meuTelefone.Ligar(telefoneDestino.Numero);
-    telefoneDestino.Ligar(meuTelefone.Numero);
+    telefoneDestino.ReceberLigacao(meuTelefone.Numero);
 }
 
 void AdicionarTelefone()
