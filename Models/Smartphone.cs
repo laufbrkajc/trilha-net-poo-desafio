@@ -25,6 +25,6 @@ namespace DesafioPOO.Models
             Console.WriteLine($"Recebendo ligação de {num}/n");
         }
 
-        public abstract void InstalarAplicativo(string nomeApp);
+        public abstract void InstalarAplicativo(string? nomeApp);
     }
 }

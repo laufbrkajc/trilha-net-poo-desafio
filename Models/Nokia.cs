@@ -2,17 +2,22 @@ namespace DesafioPOO.Models
 {
     public class Nokia : Smartphone
     {
-        private string[] AplicativosInstalados = { "bloatware" };
+        private List<string> AplicativosInstalados = new List<string> {"bloatware"};
 
         public Nokia(string num, string imei, string modl, int mem) : base(num, modl, imei, mem)
         {
         }
 
-        public override void InstalarAplicativo(string nomeApp)
+        public override void InstalarAplicativo(string? nomeApp)
         {
-            Console.WriteLine($"Instalando {nomeApp} no Nokia.");
-            AplicativosInstalados.Append(nomeApp);
-            Console.WriteLine("Instalado.");
+            if (nomeApp is null) {
+                Console.WriteLine("Nome de aplicativo nulo não é válido.");
+                return;
+            }
+
+            Console.WriteLine($"\nInstalando {nomeApp} no Nokia.");
+            AplicativosInstalados.Add(nomeApp);
+            Console.WriteLine($"{nomeApp} instalado.\n");
         }
     }
 }

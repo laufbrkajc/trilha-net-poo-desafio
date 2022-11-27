@@ -23,6 +23,7 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
             ListarSmartphones();
             break;
         case 'i' or 'I': // Instalar um aplicativo
+            InstalarAplicativo();
             break;
         case 'e' or 'E': // Excluir um telefone
             break;
@@ -31,6 +32,25 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
         default:
             break;
     }
+}
+
+void InstalarAplicativo()
+{
+    Smartphone telefone = new Nokia(" ", " ", " ", 0);
+    string? nomeAplicativo = "";
+    string? numeroTelefone = "";
+
+    Console.WriteLine("Digite o número do telefone no qual quer instalar um aplicativo");
+    numeroTelefone = Console.ReadLine();
+    Console.WriteLine("Por favor, digite o nome do aplicativo a ser instalado.\n");
+    nomeAplicativo = Console.ReadLine();
+
+    if (!SelecionarSmartphone(numeroTelefone, out telefone)) {
+        Console.WriteLine("Telefone não encontrado.");
+        return;
+    };
+
+    telefone.InstalarAplicativo(nomeAplicativo);
 }
 
 bool SelecionarSmartphone(string? num, out Smartphone smartphoneEncontrado)
