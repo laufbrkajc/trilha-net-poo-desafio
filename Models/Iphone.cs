@@ -8,12 +8,8 @@ namespace DesafioPOO.Models
         {
         }
 
-        public override void InstalarAplicativo(string? nomeApp)
+        public override void InstalarAplicativo(string nomeApp)
         {
-            if (nomeApp is null) {
-                Console.WriteLine("Nome de aplicativo nulo não é válido.");
-                return;
-            }
 
             Console.WriteLine($"\nInstalando {nomeApp} no iPhone.");
             AplicativosInstalados.Add(nomeApp);

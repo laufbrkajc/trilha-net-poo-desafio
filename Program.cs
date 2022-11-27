@@ -66,7 +66,12 @@ void InstalarAplicativo()
     if (!SelecionarSmartphone(numeroTelefone, out telefone)) {
         Console.WriteLine("\nTelefone não encontrado.");
         return;
-    };
+    }
+
+    if (nomeAplicativo is null) {
+        Console.WriteLine("Nome de aplicativo nulo não é válido.");
+        return;
+    }
 
     telefone.InstalarAplicativo(nomeAplicativo);
 }
@@ -129,8 +134,8 @@ void Chamar()
 void AdicionarTelefone()
 {
     char opcao = ' ';
-    string num = string.Empty;
-    string modelo = string.Empty;
+    string? num = null;
+    string? modelo = null;
     int memoria = 0;
 
     while (opcao != 's' && opcao != 'S')
@@ -143,13 +148,16 @@ void AdicionarTelefone()
 
         if (opcao == 'i' || opcao == 'I')
         {
-            ColetaDados(ref num, ref modelo, ref memoria);
-            smartphones.Add(new Iphone(num, Guid.NewGuid().ToString(), modelo, memoria));
+            if (ColetaDados(ref num, ref modelo, ref memoria)) {
+                smartphones.Add(new Iphone(num!, Guid.NewGuid().ToString(), modelo!, memoria));
+            }
         }
         else if (opcao == 'n' || opcao == 'N')
         {
-            ColetaDados(ref num, ref modelo, ref memoria);
-            smartphones.Add(new Nokia(num, Guid.NewGuid().ToString(), modelo, memoria));
+            if (ColetaDados(ref num, ref modelo, ref memoria))
+            {
+                smartphones.Add(new Nokia(num!, Guid.NewGuid().ToString(), modelo!, memoria));
+            }
         }
         else
         {
@@ -159,13 +167,31 @@ void AdicionarTelefone()
     }
 }
 
-void ColetaDados(ref string num, ref string modelo, ref int memoria)
+bool ColetaDados(ref string? num, ref string? modelo, ref int memoria)
 {
+    string? tempMem = string.Empty;
+
     Console.WriteLine("Digite as informações.");
     Console.Write("\n    Numero: ");
-    num = Console.ReadLine();
+    num = Console.ReadLine()!;
+    if (num is null || num.Length == 0) {
+        Console.WriteLine("\nO número não pode ser nulo ou vazio");
+        return false;
+    }
+
     Console.Write("    Modelo: ");
-    modelo = Console.ReadLine();
+    modelo = Console.ReadLine()!;
+    if (modelo is null || modelo.Length == 0) {
+        Console.WriteLine("\nO modelo não pode ser nulo ou vazio");
+        return false;
+    }
+
     Console.Write("    Memoria: ");
-    memoria = int.Parse(Console.ReadLine());
+    tempMem = Console.ReadLine();
+    if (tempMem is null || tempMem.Length == 0) {
+        Console.WriteLine("\nO modelo não pode ser nulo ou vazio");
+        return false;
+    }
+    memoria = int.Parse(tempMem);
+    return true;
 }
