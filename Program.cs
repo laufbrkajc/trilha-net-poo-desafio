@@ -6,7 +6,7 @@ char opcaoMenu = ' ';
 
 while (opcaoMenu != 's' && opcaoMenu != 'S')
 {
-    Console.WriteLine("O que deseja fazer?");
+    Console.WriteLine("\nO que deseja fazer?");
     Console.WriteLine("Adicionar um novo telefone, Fazer uma ligação, Ligar para um número, Remover um telefone, Instalar um aplicativo, Excluir um telefone ou Sair?(A/C/L/I/E/S)");
     opcaoMenu = (char)Console.Read();
     Console.Read();
@@ -26,6 +26,7 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
             InstalarAplicativo();
             break;
         case 'e' or 'E': // Excluir um telefone
+            ExcluirTelefone();
             break;
         case 's' or 'S': // Sair
             break;
@@ -34,19 +35,36 @@ while (opcaoMenu != 's' && opcaoMenu != 'S')
     }
 }
 
+void ExcluirTelefone()
+{
+    Smartphone telefone = new Nokia(" ", " ", " ", 0);
+    string? numeroTelefone = "";
+    Console.WriteLine("\nDigite o número do telefone a ser excluído.");
+    numeroTelefone = Console.ReadLine();
+
+    if (!SelecionarSmartphone(numeroTelefone, out telefone)) {
+        Console.WriteLine("\nTelefone não encontrado.");
+        return;
+    };
+
+    smartphones.Remove(telefone);
+
+    Console.WriteLine("\nTelefone removido.");
+}
+
 void InstalarAplicativo()
 {
     Smartphone telefone = new Nokia(" ", " ", " ", 0);
     string? nomeAplicativo = "";
     string? numeroTelefone = "";
 
-    Console.WriteLine("Digite o número do telefone no qual quer instalar um aplicativo");
+    Console.WriteLine("\nDigite o número do telefone no qual quer instalar um aplicativo");
     numeroTelefone = Console.ReadLine();
     Console.WriteLine("Por favor, digite o nome do aplicativo a ser instalado.\n");
     nomeAplicativo = Console.ReadLine();
 
     if (!SelecionarSmartphone(numeroTelefone, out telefone)) {
-        Console.WriteLine("Telefone não encontrado.");
+        Console.WriteLine("\nTelefone não encontrado.");
         return;
     };
 
@@ -72,7 +90,7 @@ void ListarSmartphones()
     foreach (var telefone in smartphones)
     {
         // Começamos com um rótulo indicando se o telefone é iPhone ou Nokia.
-        string nokiaOuIphone = (telefone is Nokia) ? "iPhone" : "Nokia";
+        string nokiaOuIphone = (telefone is Nokia) ? "Nokia" : "iPhone";
         Console.WriteLine($"  {nokiaOuIphone}");
         Console.WriteLine($"    Numero: {telefone.Numero}");
         Console.WriteLine($"    Modelo: {telefone.Modelo}");
@@ -88,19 +106,19 @@ void Chamar()
     Smartphone meuTelefone;
     Smartphone telefoneDestino;
 
-    Console.WriteLine("De qual número quer ligar?");
+    Console.WriteLine("\nDe qual número quer ligar?");
     meuNumero = Console.ReadLine();
     Console.WriteLine("Para qual número quer ligar?");
     contato = Console.ReadLine();
 
     if(!SelecionarSmartphone(meuNumero, out meuTelefone))
     {
-        Console.WriteLine("Telefone origem não encontrado.");
+        Console.WriteLine("\nTelefone origem não encontrado.");
         return;
     }
     else if(!SelecionarSmartphone(contato, out telefoneDestino))
     {
-        Console.WriteLine("Telefone destino não encontrado.");
+        Console.WriteLine("\nTelefone destino não encontrado.");
         return;
     }
 
@@ -117,7 +135,7 @@ void AdicionarTelefone()
 
     while (opcao != 's' && opcao != 'S')
     {
-        Console.WriteLine("Adicionar iPhone ou Nokia? 'S' para sair.(i/n/s)");
+        Console.WriteLine("\nAdicionar iPhone ou Nokia? 'S' para sair.(i/n/s)");
         opcao = (char)Console.Read();
         Console.Read();
 
@@ -135,7 +153,7 @@ void AdicionarTelefone()
         }
         else
         {
-            Console.WriteLine($"{opcao}, não é uma opção válida");
+            Console.WriteLine($"\n{opcao}, não é uma opção válida");
             break;
         }
     }
