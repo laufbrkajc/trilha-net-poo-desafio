@@ -17,12 +17,12 @@ namespace DesafioPOO.Models
 
         public void Ligar(string num)
         {
-            Console.WriteLine($"/nLigando para {num}");
+            Console.WriteLine($"\nLigando para {num}");
         }
 
         public void ReceberLigacao(string num)
         {
-            Console.WriteLine($"Recebendo ligação de {num}/n");
+            Console.WriteLine($"Recebendo ligação de {num}\n");
         }
 
         public abstract void InstalarAplicativo(string nomeApp);

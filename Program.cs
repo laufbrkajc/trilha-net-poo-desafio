@@ -1,8 +1,19 @@
 ﻿using DesafioPOO.Models;
 
-// TODO: Realizar os testes com as classes Nokia e Iphone
 List<Smartphone> smartphones = new List<Smartphone>();
 char opcaoMenu = ' ';
+
+smartphones.Add(new Nokia("34 12345-6789", Guid.NewGuid().ToString(), "2.1", 2));
+smartphones.Add(new Iphone("45 98765-4321", Guid.NewGuid().ToString(), "10 Pro", 2));
+
+Nokia nokia_21 = (Nokia)smartphones[0];
+Iphone iphone_10Pro = (Iphone)smartphones[1];
+
+nokia_21.InstalarAplicativo("Telegram");
+iphone_10Pro.InstalarAplicativo("Stellarium");
+
+nokia_21.Ligar(iphone_10Pro.Numero);
+iphone_10Pro.ReceberLigacao(nokia_21.Numero);
 
 while (opcaoMenu != 's' && opcaoMenu != 'S')
 {
